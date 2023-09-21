@@ -165,7 +165,7 @@ class AudioEncoder(nn.Module):
 
         # assert x.shape[1:] == self.positional_embedding.shape, "incorrect audio shape"
         assert x.shape[1] > self.positional_embedding.shape[1], "audio too long"
-        x = (x + self.positional_embedding[x.shape[1]:,:]).to(x.dtype)
+        x = (x + self.positional_embedding[:x.shape[1],:]).to(x.dtype)
 
         for block in self.blocks:
             x = block(x)
